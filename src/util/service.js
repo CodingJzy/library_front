@@ -5,7 +5,7 @@ import store from "../store/index.js"
 let loadingObj = null
 const Service = axios.create({
     timeout: 8000,
-    baseURL: "http://127.0.0.1:1314",
+    baseURL: "http://192.168.104.85:1314",
     headers: {
         "Content-type": "application/json;charset=utf-8",
         "Authorization": "Bearer "+ store.state.uInfo.userInfo.token
@@ -14,6 +14,8 @@ const Service = axios.create({
 
 // 请求拦截-增加loading,对请求做统一处理
 Service.interceptors.request.use(config => {
+    const token = store.state.uInfo.userInfo.token
+    if (token)config.headers['Authorization'] = "Bearer "+token;
     loadingObj = ElLoading.service({
         lock: true,
         text: 'Loading',
@@ -61,6 +63,7 @@ export const post = config => {
 
 // get请求
 export const get = config => {
+    console.log('config=',config)
     return Service({
         ...config,
         method: "get",
