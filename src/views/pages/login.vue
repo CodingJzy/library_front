@@ -1,5 +1,5 @@
 <template>
-    <div class="login_wrap">
+<!--    <div class="login_wrap">
         <div class="form_wrap">
 
             <el-form
@@ -41,9 +41,28 @@
                 </el-form-item>
             </el-form>
             <el-button type="primary" class="login_btn" @click="handleLogin">登录</el-button>
-            <!-- <p>{{num}}</p> -->
+            &lt;!&ndash; <p>{{num}}</p> &ndash;&gt;
         </div>
+    </div>-->
+
+  <div class="login-wrapper">
+    <div>
+      <div>
+        <img src="@/assets/images/login-2.png" width="349" height="244">
+      </div>
+      <div>
+        <img src="@/assets/images/login-1.png" width="40" height="40">
+        <div>欢迎登录</div>
+        <el-input v-model="loginData.name" size="large" placeholder="请输入手机号码"></el-input>
+        <el-input v-model="loginData.password" size="large" placeholder="请输入密码"></el-input>
+        <div>
+          <el-checkbox size="small" v-model="sure"></el-checkbox>
+          <div style="margin-left: 8px">我已阅读并同意</div><a>《用户隐私政策》</a>
+        </div>
+        <el-button type="primary" size="large" style="width: 335px" @click="handleLogin">登录</el-button>
+      </div>
     </div>
+  </div>
 </template>
 <script>
 import {reactive, toRefs} from 'vue'
@@ -64,7 +83,7 @@ export default {
                 password: ""
             },
             num: count,
-
+          sure:false
         })
         const handleLogin = () => {
             // 请求后台接口
@@ -102,27 +121,64 @@ export default {
     }
 }
 </script>
-<style scoped>
-
-.login_wrap {
-    width: 100%;
-    height: 100vh;
-    background: #409EFF;
-    position: relative;
-}
-
-.form_wrap {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #ffffffc7;
-    padding: 100px 80px;
-    border-radius: 5px;
-}
-
-.login_btn {
-    display: block;
-    margin-left: 150px;
+<style lang="scss" scoped>
+.login-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(242, 247, 251, 1);
+  height: 100%;
+  overflow: auto;
+  >div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 660px;
+    box-shadow: 0px 1px 8px 0px rgba(234,233,241,0.5);
+    >div:nth-child(1){
+      width:600px;
+      height: 100%;
+      background-color: rgba(41, 132, 248, 1);
+      border-radius:8px 0 0 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    >div:nth-child(2){
+      width:600px;
+      height: 100%;
+      background-color: white;
+      border-radius: 0 8px 8px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      img{
+        margin-bottom: 20px;
+      }
+      >div:nth-child(2){
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 30px;
+      }
+      >div:nth-child(5){
+        width:335px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-bottom: 30px;
+        a{
+          color:#1F52D9;
+        }
+      }
+      .el-input{
+        width: 335px;
+        margin-bottom: 20px;
+      }
+      .el-input:nth-child(4){
+        margin-bottom: 10px;
+      }
+    }
+  }
 }
 </style>
