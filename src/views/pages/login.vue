@@ -7,6 +7,10 @@
                     :model="loginData"
                     label-width="100px"
                     class="demo-dynamic"
+                    :label-position="left"
+                    style="max-width: 480px; margin-right: 30px"
+
+
             >
                 <el-form-item
                         prop="name"
@@ -33,7 +37,7 @@
                     }, 
                 ]"
                 >
-                    <el-input type="password" v-model="loginData.password"/>
+                    <el-input type="password" show-password v-model="loginData.password"/>
                 </el-form-item>
             </el-form>
             <el-button type="primary" class="login_btn" @click="handleLogin">登录</el-button>
@@ -76,8 +80,6 @@ export default {
                     })
                 }
             })
-
-
         }
 
 
@@ -101,10 +103,11 @@ export default {
 }
 </script>
 <style scoped>
+
 .login_wrap {
     width: 100%;
     height: 100vh;
-    background: rgb(56, 86, 139);
+    background: #409EFF;
     position: relative;
 }
 
@@ -113,13 +116,13 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #fff;
-    padding: 30px 50px;
+    background: #ffffffc7;
+    padding: 100px 80px;
     border-radius: 5px;
 }
 
 .login_btn {
     display: block;
-    margin: 10px auto;
+    margin-left: 150px;
 }
 </style>

@@ -61,30 +61,44 @@
         </div>
         <!-- 新增弹窗 -->
         <el-dialog v-model="dialogFormVisible" title="新建用户">
-            <!-- 
-                表单
-                | username | 用户名称 | 不能为空 |
-                | password | 用户密码 | 不能为空 |
-                | email    | 邮箱     | 可以为空 |
-                | mobile   | 手机号   | 可以为空 |
-             -->
             <el-form
+                    :label-position="left"
+                    label-width="100px"
+                    style="max-width: 460px"
                     ref="userForm"
                     :model="formData"
                     :rules="rules"
             >
-                <el-form-item label="用户名称" prop="username">
-                    <el-input v-model="formData.username" placeholder="请输入用户名称"/>
+                <el-form-item label="用户名" prop="name" >
+                    <el-input v-model="formData.name" placeholder="请输入用户名称"/>
                 </el-form-item>
-                <el-form-item label="用户密码" prop="password">
-                    <el-input type="password" v-model="formData.password" placeholder="请输入密码"/>
+                <el-form-item label="昵称" prop="nick_name">
+                    <el-input v-model="formData.nick_name" placeholder="请输入用户昵称"/>
                 </el-form-item>
-                <el-form-item label="邮箱" prop="email">
-                    <el-input v-model="formData.email" placeholder="请输入用户邮箱"/>
+                <el-form-item label="角色" prop="role">
+                    <el-select v-model="formData.role" prop="role" placeholder="请选择用户角色">
+                        <el-option label="图书管理员" value="1"/>
+                        <el-option label="读者" value="2"/>
+                    </el-select>
                 </el-form-item>
-                <el-form-item label="手机号" prop="mobile">
-                    <el-input v-model="formData.mobile" placeholder="请输入用户手机号"/>
+
+                <el-form-item label="手机号" prop="phone">
+                    <el-input v-model="formData.phone" placeholder="请输入用户手机号"/>
                 </el-form-item>
+                <el-form-item label="性别" prop="sex">
+                    <el-select v-model="formData.sex" prop="role" placeholder="请选择用户性别">
+                        <el-option label="未知" value="0"/>
+                        <el-option label="男" value="1"/>
+                        <el-option label="女" value="2"/>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="班级" prop="classes">
+                    <el-input v-model="formData.classes" placeholder="请输入用户班级"/>
+                </el-form-item>
+                <el-form-item label="学号" prop="code">
+                    <el-input v-model="formData.email" placeholder="请输入用户学号"/>
+                </el-form-item>
+
             </el-form>
             <template #footer>
                 <div class="flex">
@@ -139,10 +153,13 @@ export default {
             dialogFormVisible: false,
             dialogFormEVisible: false,
             formData: {
-                username: "",
-                password: "",
-                email: "",
-                mobile: "",
+                name: "",
+                nick_name: "",
+                role: "",
+                phone: "",
+                sex: "",
+                classes: "",
+                code: "",
             },
             formData2: {
                 id: "",
@@ -150,21 +167,11 @@ export default {
                 mobile: "",
             },
             rules: {
-                username: [
+                name: [
                     {required: true, message: "此项为必填", trigger: "blur"}
                 ],
 
-                password: [
-                    {required: true, message: "此项为必填", trigger: "blur"}
-                ],
-                email: [
-                    {
-                        required: false,
-                        pattern: /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
-                        message: "请填写正确邮箱", trigger: "blur"
-                    }
-                ],
-                mobile: [
+                phone: [
                     {
                         required: false,
                         pattern: /^[1][3,4,5,7,8][0-9]{9}$/,
