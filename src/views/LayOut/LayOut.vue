@@ -5,7 +5,7 @@
         <el-container>
             <el-header class="common-header flex-float">
                 <div class="flex">
-                    <img class="logo" src="../../assets/logo.png" alt="">
+                    <img class="logo" src="../../assets/logo1.jpg" alt="">
                     <h1 class="title">图书管理系统</h1>
                 </div>
 

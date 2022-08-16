@@ -48,10 +48,10 @@
   <div class="login-wrapper">
     <div>
       <div>
-        <img src="@/assets/images/login-2.png" width="349" height="244">
+        <img src="@/assets/images/login-3.jpg" width="400" height="500">
       </div>
       <div>
-        <img src="@/assets/images/login-1.png" width="40" height="40">
+        <img src="@/assets/images/login-4.jpg" width="70" height="70">
         <div>欢迎登录</div>
         <el-input v-model="loginData.name" size="large" placeholder="请输入用户名"></el-input>
         <el-input v-model="loginData.password" size="large" show-password placeholder="请输入密码"></el-input>
