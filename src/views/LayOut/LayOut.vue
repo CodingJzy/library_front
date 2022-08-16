@@ -10,11 +10,8 @@
                 </div>
 
                 <el-menu
-                        :default-active="activeIndex"
-                        class="flex"
                         mode="horizontal"
                         :ellipsis="false"
-                        @select="handleSelect"
                 >
                     <div class="flex" />
                     <el-sub-menu index="2">
@@ -33,7 +30,6 @@
                             active-color="red"
                             text-color="black"
                             :router="true"
-                            collapse-transition="true"
                     >
                         <el-sub-menu index="1" >
                             <template #title>

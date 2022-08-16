@@ -70,15 +70,16 @@
                     :rules="rules"
             >
                 <el-form-item label="用户名" prop="name">
-                    <el-input v-model="formData.name" placeholder="请输入用户名称"/>
+                    <el-input v-model="formData.name" placeholder="请输入用户名"/>
                 </el-form-item>
                 <el-form-item label="昵称" prop="nick_name">
                     <el-input v-model="formData.nick_name" placeholder="请输入用户昵称"/>
                 </el-form-item>
+
                 <el-form-item label="角色" prop="role">
                     <el-select v-model.number="formData.role" prop="role" placeholder="请选择用户角色">
-                        <el-option label="图书管理员" value=1 />
-                        <el-option label="读者" value=2 />
+                        <el-option v-if="isAdmin" label="图书管理员" :value="1"/>
+                        <el-option label="读者" :value="2"/>
                     </el-select>
                 </el-form-item>
 
@@ -87,9 +88,9 @@
                 </el-form-item>
                 <el-form-item label="性别" prop="sex">
                     <el-select v-model.number="formData.sex" prop="role" placeholder="请选择用户性别">
-                        <el-option label="未知" value=0 />
-                        <el-option label="男" value=1 />
-                        <el-option label="女" value=2 />
+                        <el-option label="未知" :value="0"/>
+                        <el-option label="男" :value="1"/>
+                        <el-option label="女" :value="2"/>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="班级" prop="classes">
@@ -138,11 +139,17 @@
 <script>
 import {reactive, ref, toRefs} from 'vue'
 import {userAddApi, userChangeInfoApi, userChangeStateApi, userDeleteApi, userListApi} from "@/util/request.js"
+import store from "../../store/index.js"
 
 export default {
     name: "users",
     setup() {
+        const isAdmin = store.state.uInfo.userInfo.is_admin
+
         const data = reactive({
+            // 是否是超级管理员
+            isAdmin: isAdmin,
+
             searchParams: {
                 query: "",
                 pagesize: 5,
