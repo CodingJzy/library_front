@@ -69,16 +69,16 @@
                     :model="formData"
                     :rules="rules"
             >
-                <el-form-item label="用户名" prop="name" >
+                <el-form-item label="用户名" prop="name">
                     <el-input v-model="formData.name" placeholder="请输入用户名称"/>
                 </el-form-item>
                 <el-form-item label="昵称" prop="nick_name">
                     <el-input v-model="formData.nick_name" placeholder="请输入用户昵称"/>
                 </el-form-item>
                 <el-form-item label="角色" prop="role">
-                    <el-select v-model="formData.role" prop="role" placeholder="请选择用户角色">
-                        <el-option label="图书管理员" value="1"/>
-                        <el-option label="读者" value="2"/>
+                    <el-select v-model.number="formData.role" prop="role" placeholder="请选择用户角色">
+                        <el-option label="图书管理员" value=1 />
+                        <el-option label="读者" value=2 />
                     </el-select>
                 </el-form-item>
 
@@ -86,10 +86,10 @@
                     <el-input v-model="formData.phone" placeholder="请输入用户手机号"/>
                 </el-form-item>
                 <el-form-item label="性别" prop="sex">
-                    <el-select v-model="formData.sex" prop="role" placeholder="请选择用户性别">
-                        <el-option label="未知" value="0"/>
-                        <el-option label="男" value="1"/>
-                        <el-option label="女" value="2"/>
+                    <el-select v-model.number="formData.sex" prop="role" placeholder="请选择用户性别">
+                        <el-option label="未知" value=0 />
+                        <el-option label="男" value=1 />
+                        <el-option label="女" value=2 />
                     </el-select>
                 </el-form-item>
                 <el-form-item label="班级" prop="classes">
@@ -155,9 +155,9 @@ export default {
             formData: {
                 name: "",
                 nick_name: "",
-                role: "",
                 phone: "",
-                sex: "",
+                // role: 0,
+                // sex: 0,
                 classes: "",
                 code: "",
             },

@@ -5,7 +5,7 @@ import store from "../store/index.js"
 let loadingObj = null
 const Service = axios.create({
     timeout: 8000,
-    baseURL: "http://192.168.104.85:1314",
+    baseURL: "http://127.0.0.1:1314",
     headers: {
         "Content-type": "application/json;charset=utf-8",
         "Authorization": "Bearer "+ store.state.uInfo.userInfo.token

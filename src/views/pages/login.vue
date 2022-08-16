@@ -53,8 +53,8 @@
       <div>
         <img src="@/assets/images/login-1.png" width="40" height="40">
         <div>欢迎登录</div>
-        <el-input v-model="loginData.name" size="large" placeholder="请输入手机号码"></el-input>
-        <el-input v-model="loginData.password" size="large" placeholder="请输入密码"></el-input>
+        <el-input v-model="loginData.name" size="large" placeholder="请输入用户名"></el-input>
+        <el-input v-model="loginData.password" size="large" show-password placeholder="请输入密码"></el-input>
         <div>
           <el-checkbox size="small" v-model="sure"></el-checkbox>
           <div style="margin-left: 8px">我已阅读并同意</div><a>《用户隐私政策》</a>

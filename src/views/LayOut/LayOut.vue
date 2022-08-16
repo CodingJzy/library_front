@@ -8,16 +8,34 @@
                     <img class="logo" src="../../assets/logo.png" alt="">
                     <h1 class="title">图书管理系统</h1>
                 </div>
+
+                <el-menu
+                        :default-active="activeIndex"
+                        class="flex"
+                        mode="horizontal"
+                        :ellipsis="false"
+                        @select="handleSelect"
+                >
+                    <div class="flex" />
+                    <el-sub-menu index="2">
+                        <template #title>用户名：江伟</template>
+                        <el-menu-item index="2-1">修改密码</el-menu-item>
+                        <el-menu-item index="2-2" @click="loginOut">退出</el-menu-item>
+                    </el-sub-menu>
+                </el-menu>
+
                 <el-button @click="loginOut">退出</el-button>
             </el-header>
             <el-container>
                 <el-aside class="common-aside" width="200px">
                     <el-menu
                             background-color="none"
-                            text-color="#fff"
+                            active-color="red"
+                            text-color="black"
                             :router="true"
+                            collapse-transition="true"
                     >
-                        <el-sub-menu index="1">
+                        <el-sub-menu index="1" >
                             <template #title>
                                 <el-icon>
                                     <Avatar/>
@@ -92,11 +110,12 @@ export default {
 }
 
 .common-header {
-    background: rgb(39, 45, 53);
+    background: rgb(0, 118, 245);
+
 }
 
 .common-aside {
-    background: rgb(48, 55, 65);
+    background: rgb(234, 234, 234);
 }
 
 .logo {
@@ -110,4 +129,5 @@ export default {
 .el-main {
     background: #efefef;
 }
+
 </style>
