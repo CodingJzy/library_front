@@ -21,6 +21,15 @@ export const userAddApi = data => {
         data
     })
 }
+
+// 用户录修改密码
+export const userChangePasswordApi = data => {
+    return post({
+        url: "/api/v1/users/change_password",
+        data
+    })
+}
+
 //  用户列表更改状态
 export const userChangeStateApi = data => {
     return put({

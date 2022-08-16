@@ -10,6 +10,14 @@ const routes = [
         name: "login",
         component: () => import("../views/pages/login.vue")
     },
+
+
+    // 第一次登录修改密码页面
+    {
+        path: "/users/change_password",
+        name: "change_password",
+        component: () => import("../views/pages/first_change_password")
+    },
     {
         path: "/",
         name: "layout",
