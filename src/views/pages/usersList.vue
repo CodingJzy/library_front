@@ -78,8 +78,8 @@
 
                 <el-form-item label="角色" prop="role">
                     <el-select v-model.number="formData.role" prop="role" placeholder="请选择用户角色">
-                        <el-option v-if="isAdmin" label="图书管理员" :value="1"/>
-                        <el-option label="读者" :value="2"/>
+                        <el-option v-if="isAdmin" label="图书管理员(默认密码为：admin)" :value="2" size="25px"/>
+                        <el-option label="读者" :value="3"/>
                     </el-select>
                 </el-form-item>
 
@@ -145,6 +145,10 @@ export default {
     name: "users",
     setup() {
         const isAdmin = store.state.uInfo.userInfo.is_admin
+
+        const tips = () => {
+          console.log()
+        }
 
         const data = reactive({
             // 是否是超级管理员

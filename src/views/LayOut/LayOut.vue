@@ -36,10 +36,10 @@
                                 <el-icon>
                                     <Avatar/>
                                 </el-icon>
-                                <span>账号管理</span>
+                                <span>用户管理</span>
                             </template>
                             <el-menu-item-group>
-                                <el-menu-item index="/users">账号列表</el-menu-item>
+                                <el-menu-item index="/users">用户列表</el-menu-item>
                             </el-menu-item-group>
                         </el-sub-menu>
                         <el-sub-menu index="2">
@@ -47,10 +47,10 @@
                                 <el-icon>
                                     <Box/>
                                 </el-icon>
-                                <span>角色管理</span>
+                                <span>图书分类管理</span>
                             </template>
                             <el-menu-item-group>
-                                <el-menu-item index="/roles">角色列表</el-menu-item>
+                                <el-menu-item index="/book_kinds">图书分类列表</el-menu-item>
                             </el-menu-item-group>
                         </el-sub-menu>
                         <el-sub-menu index="3">
@@ -58,10 +58,25 @@
                                 <el-icon>
                                     <Box/>
                                 </el-icon>
-                                <span>商品管理</span>
+                                <span>图书管理</span>
                             </template>
                             <el-menu-item-group>
-                                <el-menu-item index="/goods">商品列表</el-menu-item>
+                                <el-menu-item index="/goods">图书列表</el-menu-item>
+                            </el-menu-item-group>
+                        </el-sub-menu>
+
+                        <el-sub-menu index="4">
+                            <template #title>
+                                <el-icon>
+                                    <Box/>
+                                </el-icon>
+                                <span>借阅管理</span>
+                            </template>
+                            <el-menu-item-group>
+                                <el-menu-item index="/goods">借书列表</el-menu-item>
+                            </el-menu-item-group>
+                            <el-menu-item-group>
+                                <el-menu-item index="/goods">还书列表</el-menu-item>
                             </el-menu-item-group>
                         </el-sub-menu>
                     </el-menu>

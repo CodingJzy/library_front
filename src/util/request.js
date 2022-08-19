@@ -37,6 +37,7 @@ export const userChangeStateApi = data => {
         data
     })
 }
+
 // 更改用户信息
 export const userChangeInfoApi = data => {
     return put({
@@ -44,26 +45,25 @@ export const userChangeInfoApi = data => {
         data
     })
 }
+
 // 删除用户
-
-
 export const userDeleteApi = data => {
     return del({
         url: `users/${data.id}`
     })
 }
 
-// 获取角色
-export const getRolesApi = data => {
+// 获取图书列表
+export const getBookKindsApi = data => {
     return get({
-        url: `roles`,
+        url: `/api/v1/book_kinds`,
         data
     })
 }
 // 新建角色
-export const addRolesApi = data => {
+export const addBookKindsApi = data => {
     return post({
-        url: `roles`,
+        url: `/api/v1/book_kinds`,
         data
     })
 }
