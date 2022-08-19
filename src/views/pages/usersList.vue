@@ -33,16 +33,17 @@
                 scope.row:相当于一条数据
              -->
             <el-table :data="userList" style="width: 100%">
-                <el-table-column prop="name" label="用户名" width="180"/>
-                <el-table-column prop="nick_name" label="昵称" width="180"/>
-                <el-table-column prop="classes" label="班级"/>
+                <el-table-column prop="name" label="用户名" width="120"/>
+                <el-table-column prop="nick_name" label="昵称" width="120"/>
+                <el-table-column prop="sex" label="性别"/>
+                <el-table-column prop="classed" label="班级"/>
                 <el-table-column prop="code" label="学号"/>
                 <el-table-column prop="phone" label="电话"/>
                 <el-table-column prop="role" label="角色"/>
                 <el-table-column label="操作">
                     <template #default="scope">
                         <el-button type="primary" @click="editRow(scope.row)">编辑</el-button>
-                        <el-button type="danger" @click="deleteRow(scope.row)">删除</el-button>
+                        <el-button v-if="scope.row.role!==1" type="danger" @click="deleteRow(scope.row)">删除</el-button>
                     </template>
                 </el-table-column>
                 <!-- mg_state 状态 -->
@@ -87,49 +88,61 @@
                     <el-input v-model="formData.phone" placeholder="请输入用户手机号"/>
                 </el-form-item>
                 <el-form-item label="性别" prop="sex">
-                    <el-select v-model.number="formData.sex" prop="role" placeholder="请选择用户性别">
+                    <el-select v-model.number="formData.sex" prop="sex" placeholder="请选择用户性别">
                         <el-option label="未知" :value="0"/>
                         <el-option label="男" :value="1"/>
                         <el-option label="女" :value="2"/>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="班级" prop="classes">
-                    <el-input v-model="formData.classes" placeholder="请输入用户班级"/>
+                <el-form-item label="班级" prop="classed">
+                    <el-input v-model="formData.classed" placeholder="请输入用户班级"/>
                 </el-form-item>
                 <el-form-item label="学号" prop="code">
-                    <el-input v-model="formData.email" placeholder="请输入用户学号"/>
+                    <el-input v-model="formData.code" placeholder="请输入用户学号"/>
                 </el-form-item>
 
             </el-form>
             <template #footer>
-                <div class="flex">
-                    <el-button>取消</el-button>
+                <div style="margin-right: 250px">
+                    <el-button type="warning" @click="closeTanChuang()">取消</el-button>
                     <el-button type="primary" @click="submitForm(userForm)">确定</el-button>
                 </div>
             </template>
         </el-dialog>
         <!-- 编辑弹窗 -->
         <el-dialog v-model="dialogFormEVisible" title="编辑用户">
-            <!-- 
-                表单 
-                | email    | 邮箱     | 可以为空 |
-                | mobile   | 手机号   | 可以为空 |
-             -->
             <el-form
                     ref="userForm2"
                     :model="formData2"
                     :rules="rules2"
             >
-                <el-form-item label="邮箱" prop="email">
-                    <el-input v-model="formData2.email" placeholder="请输入用户邮箱"/>
+                <el-form-item label="用户名" prop="name">
+                    <el-input v-model="formData2.name" placeholder="请输入用户名"/>
                 </el-form-item>
-                <el-form-item label="手机号" prop="mobile">
-                    <el-input v-model="formData2.mobile" placeholder="请输入用户手机号"/>
+                <el-form-item label="昵称" prop="nick_name">
+                    <el-input v-model="formData2.nick_name" placeholder="请输入用户昵称"/>
+                </el-form-item>
+
+                <el-form-item label="手机号" prop="phone">
+                    <el-input v-model="formData2.phone" placeholder="请输入用户手机号"/>
+                </el-form-item>
+                <el-form-item label="性别" prop="sex">
+                    <el-select v-model.number="formData2.sex" prop="role" placeholder="请选择用户性别">
+                        <el-option label="未知" :value="0"/>
+                        <el-option label="男" :value="1"/>
+                        <el-option label="女" :value="2"/>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="班级" prop="classed">
+                    <el-input v-model="formData2.classed" placeholder="请输入用户班级"/>
+                </el-form-item>
+                <el-form-item label="学号" prop="code">
+                    <el-input v-model="formData2.code" placeholder="请输入用户学号"/>
                 </el-form-item>
             </el-form>
             <template #footer>
-                <div class="flex">
-                    <el-button>取消</el-button>
+                <div style="margin-right: 20px">
+                    <el-button type="warning" @click="closeTanChuang()">取消</el-button>
                     <el-button type="primary" @click="submitEForm(userForm2)">确定</el-button>
                 </div>
             </template>
@@ -140,15 +153,13 @@
 import {reactive, ref, toRefs} from 'vue'
 import {userAddApi, userChangeInfoApi, userChangeStateApi, userDeleteApi, userListApi} from "@/util/request.js"
 import store from "../../store/index.js"
+import {ElNotification} from "element-plus";
 
 export default {
     name: "users",
     setup() {
         const isAdmin = store.state.uInfo.userInfo.is_admin
 
-        const tips = () => {
-          console.log()
-        }
 
         const data = reactive({
             // 是否是超级管理员
@@ -167,15 +178,19 @@ export default {
                 name: "",
                 nick_name: "",
                 phone: "",
-                // role: 0,
-                // sex: 0,
-                classes: "",
+                role: 3,
+                sex: 0,
+                classed: "",
                 code: "",
             },
             formData2: {
                 id: "",
-                email: "",
-                mobile: "",
+                name: "",
+                nick_name: "",
+                sex: "",
+                phone: "",
+                classed: "",
+                code: "",
             },
             rules: {
                 name: [
@@ -191,14 +206,6 @@ export default {
                 ]
             },
             rules2: {
-
-                email: [
-                    {
-                        required: false,
-                        pattern: /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
-                        message: "请填写正确邮箱", trigger: "blur"
-                    }
-                ],
                 mobile: [
                     {
                         required: false,
@@ -229,16 +236,16 @@ export default {
                 }
                 // 表单通过请求接口
                 userAddApi(data.formData).then(res => {
-                    if (res.data) {
+                    if (res.code === 1) {
+                        ElNotification({
+                            title: '添加用户成功',
+                            message: res.data.name,
+                            type: 'success',
+                        })
                         // 隐藏弹窗
                         data.dialogFormVisible = false
                         // 清空form
-                        data.formData = {
-                            username: "",
-                            password: "",
-                            email: "",
-                            mobile: "",
-                        }
+                        data.formData = {}
                         // 重新更新列表 
                         searchList()
                     }
@@ -253,40 +260,66 @@ export default {
                 }
                 // 提交修改
                 userChangeInfoApi(data.formData2).then(res => {
-                    if (res.data) {
-                        data.dialogFormEVisible = false;
+                    if (res.code === 1) {
+                        // 隐藏弹窗
+                        data.dialogFormEVisible = false
+                        ElNotification({
+                            title: '编辑用户成功',
+                            message: res.data.name,
+                            type: 'success',
+                        })
+
+                        // 清空form
+                        data.formData = {}
+                        // 重新更新列表
                         searchList()
+                    } else {
+                        console.log("xxx")
                     }
                 })
-            })
-        }
-        // 状态更改
-        const switchChange = row => {
-            console.log("操作的那条数据", row)
-            userChangeStateApi(row).then(res => {
-                if (res.data) {
-                    searchList()
-                }
             })
         }
         // 数据编辑
         const editRow = row => {
             console.log("编辑的那条数据", row)
-            const {email, mobile, id} = row
+            const {name, nick_name, id, classed, phone, sex, code} = row
             // 展示编辑表单
             data.dialogFormEVisible = true;
-            data.formData2.email = email
-            data.formData2.mobile = mobile
+            data.formData2.name = name
+            data.formData2.nick_name = nick_name
+            data.formData2.phone = phone
+            data.formData2.classed = classed
             data.formData2.id = id
+            data.formData2.sex = sex
+            data.formData2.code = code
         }
         // 删除数据
         const deleteRow = row => {
             console.log("删除的那条数据", row)
             userDeleteApi(row).then(res => {
-                searchList()
+                if (res.code === 1) {
+                    // 隐藏弹窗
+                    data.dialogFormEVisible = false
+                    ElNotification({
+                        title: '删除用户成功',
+                        message: row.name,
+                        type: 'success',
+                    })
+
+                    // 清空form
+                    data.formData = {}
+                    // 重新更新列表
+                    searchList()
+                } else {
+                    console.log("xxx")
+                }
             })
         }
 
+        const closeTanChuang = () => {
+            data.dialogFormEVisible = false
+            data.dialogFormVisible = false
+        }
 
         // 方法初始化
         searchList()
@@ -300,9 +333,9 @@ export default {
             submitEForm,
             userForm,
             userForm2,
-            switchChange,
             editRow,
-            deleteRow
+            deleteRow,
+            closeTanChuang
         }
     }
 }

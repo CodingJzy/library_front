@@ -37,7 +37,7 @@
             </el-form>
             <template #footer>
                 <div style="margin-right: 50px">
-                    <el-button type="warning">取消</el-button>
+                    <el-button type="warning" @click="closeTanChuang()">取消</el-button>
                     <el-button type="primary" @click="submitForm(bookKindForm)">确定</el-button>
                 </div>
             </template>
@@ -46,8 +46,8 @@
 </template>
 <script>
 
-import {h, reactive, ref, toRefs} from "vue"
-import {addBookKindsApi, editRolesApi, getBookKindsApi, rolesDeleteApi} from "@/util/request.js"
+import {reactive, ref, toRefs} from "vue"
+import {addBookKindsApi, editBookKindsApi, getBookKindsApi, rolesDeleteApi} from "@/util/request.js"
 import {ElNotification} from 'element-plus'
 
 export default {
@@ -77,16 +77,22 @@ export default {
                 }
                 // 提交表单
                 if (data.formData.id) {
-                    editRolesApi(data.formData).then(res => {
-                        if (res.data) {
+                    editBookKindsApi(data.formData).then(res => {
+                        if (res.code === 1) {
+                            ElNotification({
+                                title: '编辑图书分类成功',
+                                message: data.formData.name,
+                                type: 'success',
+                            })
                             data.dialogFormVisible = false
                             getList()
+                        } else {
+                            console.log(res.msg);
                         }
                     })
 
                 } else {
                     addBookKindsApi(data.formData).then(res => {
-                        console.log(res)
                         if (res.code === 1) {
                             ElNotification({
                                 title: '添加图书分类成功',
@@ -106,23 +112,35 @@ export default {
         }
         const editRow = row => {
             data.dialogFormVisible = true
-            const {roleName, roleDesc, id} = row
+            const {name, id} = row
             data.formData = {
                 id,
-                roleName,
-                roleDesc
+                name
             }
         }
         const deleteRow = row => {
             rolesDeleteApi(row).then(res => {
+                if (res.code === 1) {
+                    ElNotification({
+                        title: '删除图书分类成功',
+                        message: row.name,
+                        type: 'success',
+                    })
+                    data.dialogFormVisible = false
+                    getList()
+                } else {
+                    console.log(res.msg);
+                }
                 getList()
             })
         }
-        // 清楚表单
+
+        const closeTanChuang = () => {
+            data.dialogFormVisible = false
+        }
+
         const clearForm = () => {
             data.formData = {
-                roleName: "",
-                roleDesc: ""
             }
         }
         getList()
@@ -133,7 +151,8 @@ export default {
             deleteRow,
             bookKindForm,
             submitForm,
-            clearForm
+            clearForm,
+            closeTanChuang
         }
     }
 }

@@ -41,7 +41,7 @@ export const userChangeStateApi = data => {
 // 更改用户信息
 export const userChangeInfoApi = data => {
     return put({
-        url: `users/${data.id}`,
+        url: `/api/v1/users/${data.id}`,
         data
     })
 }
@@ -49,7 +49,7 @@ export const userChangeInfoApi = data => {
 // 删除用户
 export const userDeleteApi = data => {
     return del({
-        url: `users/${data.id}`
+        url: `/api/v1/users/${data.id}`
     })
 }
 
@@ -60,24 +60,25 @@ export const getBookKindsApi = data => {
         data
     })
 }
-// 新建角色
+// 新建图书分类
 export const addBookKindsApi = data => {
     return post({
         url: `/api/v1/book_kinds`,
         data
     })
 }
-// 编辑角色
-export const editRolesApi = data => {
+// 编辑图书分类
+export const editBookKindsApi = data => {
     return put({
-        url: `roles/${data.id}`,
+        url: `/api/v1/book_kinds/${data.id}`,
         data
     })
 }
 
+// 删除图书分类
 export const rolesDeleteApi = data => {
     return del({
-        url: `roles/${data.id}`
+        url: `/api/v1/book_kinds/${data.id}`
     })
 }
 
